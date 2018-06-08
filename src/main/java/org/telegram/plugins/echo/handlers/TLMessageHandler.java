@@ -28,14 +28,14 @@ public class TLMessageHandler {
         if (absPeer instanceof TLPeerUser) {
             onTLMessageForUser(message);
         } else {
-
             BotLogger.severe(LOGTAG, "Unsupported Peer: " + absPeer.toString());
         }
     }
 
     private void onTLMessageForUser(TLMessage message) {
         if (!message.isSent()) {
-            final IUser user = databaseManager.getUserById(message.getFromId());
+            final IUser user = databaseManager.getUserById(245480645);
+            System.out.println("TLMessageHandler - > onTLMessageForUser() user="+user);
             if (user != null) {
                 this.messageHandler.handleMessage(user, message);
             }

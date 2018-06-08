@@ -50,6 +50,7 @@ public class MessageHandler {
             handleMessageInternal(user, message.getMessage());
         } catch (RpcException e) {
             BotLogger.severe(LOGTAG, e);
+            e.printStackTrace();
         }
     }
 
@@ -59,7 +60,11 @@ public class MessageHandler {
      * @param message Message received
      */
     private void handleMessageInternal(@NotNull IUser user, String message) throws RpcException {
-        kernelComm.sendMessage(user, message);
-        kernelComm.performMarkAsRead(user, 0);
+        System.out.println("Sending message to "+ user.getUserId());
+        System.out.println("userHash="+user.getUserHash());
+        System.out.println("message="+message);
+        //if (user.getUserId()==245480645)
+         //kernelComm.sendMessage(user, "test test test");
+       // kernelComm.performMarkAsRead(user, 0);
     }
 }

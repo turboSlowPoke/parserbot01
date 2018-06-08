@@ -89,11 +89,14 @@ public class ChatsHandler implements IChatsHandler {
     }
 
     private void onChannel(TLChannel channel) {
+        System.out.println("ChatsHandler -> onChannel channel.getUsername()="+channel.getUsername());
         boolean updating = true;
         ChatImpl current = (ChatImpl) databaseManager.getChatById(channel.getId());
         if (current == null) {
+            System.out.println("\"ChatsHandler -> onChannel -> if (current == null)");
             updating = false;
             current = new ChatImpl(channel.getId());
+            System.out.println("current = new ChatImpl(channel.getId());");
         }
         current.setChannel(true);
         if (channel.hasAccessHash()) {
@@ -102,8 +105,11 @@ public class ChatsHandler implements IChatsHandler {
 
         if (updating) {
             databaseManager.updateChat(current);
+            System.out.println("after databaseManager.updateChat(current");
         } else {
+            System.out.println("before databaseManager.addChat(current);");
             databaseManager.addChat(current);
+            System.out.println("after databaseManager.addChat(current);");
         }
     }
 
