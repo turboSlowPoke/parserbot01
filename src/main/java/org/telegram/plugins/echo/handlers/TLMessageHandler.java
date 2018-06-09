@@ -34,7 +34,7 @@ public class TLMessageHandler {
 
     private void onTLMessageForUser(TLMessage message) {
         if (!message.isSent()) {
-            final IUser user = databaseManager.getUserById(245480645);
+            final IUser user = databaseManager.getUserById(376651530);
             System.out.println("TLMessageHandler - > onTLMessageForUser() user="+user);
             if (user != null) {
                 this.messageHandler.handleMessage(user, message);

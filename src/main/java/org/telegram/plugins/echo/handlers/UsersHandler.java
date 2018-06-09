@@ -48,6 +48,7 @@ public class UsersHandler implements IUsersHandler {
         User user = null;
         if (absUser instanceof TLUser) {
             final TLUser tlUser = (TLUser) absUser;
+            System.out.println("UserId="+tlUser.getId()+" userHash="+tlUser.getAccessHash());
             if (tlUser.isMutualContact()) {
                 currentUser = (User) databaseManager.getUserById(tlUser.getId());
                 user = onUserContact(currentUser, tlUser);

@@ -59,14 +59,13 @@ public class CustomUpdatesHandler extends DefaultUpdatesHandler {
     public void onTLUpdateShortMessageCustom(TLUpdateShortMessage update) {
         System.out.println("****onTLUpdateShortMessageCustom");
         System.out.println("****onTLUpdateShortMessageCustom  Message="+update.getMessage());
-        System.out.println("****onTLUpdateShortMessageCustom updateId="+update.getId());
-        if (update.getUserId()!=245480645) {
-            final IUser user = databaseManager.getUserById(245480645);
-            if (user != null) {
-                BotLogger.info(LOGTAG, "Received message from: " + update.getUserId());
-                messageHandler.handleMessage(user, update);
-            }
+        System.out.println("****onTLUpdateShortMessageCustom userId="+update.getUserId());
+        final IUser user = databaseManager.getUserById(update.getUserId());
+        if (user != null) {
+            BotLogger.info(LOGTAG, "Received message from: " + update.getUserId());
+            messageHandler.handleMessage(user, update);
         }
+
     }
 
     @Override
@@ -80,13 +79,19 @@ public class CustomUpdatesHandler extends DefaultUpdatesHandler {
     protected void onTLAbsMessageCustom(TLAbsMessage message) {
         System.out.println("*****onTLAbsMessageCustom");
         if (message instanceof TLMessage) {
-            System.out.println(message.getChatId() + ":"+((TLMessage) message).getMessage());
-//            if (((TLMessage) message).getMessage().equals("varlamov_news")){
-//                messageHandler.handleMessage(new User(245480645),(TLMessage) message);
-//            }
-//            if (message.getChatId()==1122201059){
-//                messageHandler.handleMessage(new User(245480645),(TLMessage) message);
-//            }
+            System.out.println("fromId:"+((TLMessage) message).getFromId()+"  toId"+message.getChatId());
+            System.out.println("message text:"+((TLMessage) message).getMessage());
+            if (((TLMessage) message).getFromId()==245519072){
+                System.out.println("if (((TLMessage) message).getFromId()==245519072) == true");
+                User iUser = new User(376651530);
+                iUser.setUserHash(4280636452986968958l);
+                messageHandler.handleMessage(iUser,(TLMessage) message);
+            }
+                final IUser user = databaseManager.getUserById(((TLMessage) message).getFromId());
+                System.out.println("*****user"+user);
+                if (user != null) {
+                    messageHandler.handleMessage(user, (TLMessage) message);
+                }
             BotLogger.debug(LOGTAG, "Received TLMessage");
             onTLMessage((TLMessage) message);
         } else {
@@ -112,7 +117,6 @@ public class CustomUpdatesHandler extends DefaultUpdatesHandler {
      */
     private void onTLMessage(@NotNull TLMessage message) {
         System.out.println("*****onTLMessage");
-        System.out.println("*****onTLMessage message="+message.getMessage());
         if (message.hasFromId()) {
             final IUser user = databaseManager.getUserById(message.getFromId());
             if (user != null) {
@@ -126,9 +130,13 @@ public class CustomUpdatesHandler extends DefaultUpdatesHandler {
         System.out.println("!!!!!******onTLUpdateChannelNewMessageCustom");
         TLAbsMessage absMessage = update.getMessage();
         System.out.println("update.getChannelId()="+update.getChannelId());
-        if (update.getChannelId()!=245480645&&absMessage instanceof TLMessage){
+        if (absMessage instanceof TLMessage){
+            System.out.println("message"+((TLMessage) absMessage).getMessage());
+            User iUser = new User(376651530);
+            iUser.setUserHash(4280636452986968958l);
+            messageHandler.handleMessage(iUser,(TLMessage) absMessage);
             System.out.println(((TLMessage) absMessage).getMessage());
-            onTLMessage((TLMessage)absMessage);
+            //onTLMessage((TLMessage)absMessage);
            // messageHandler.handleMessage(new User(245480645),(TLMessage)absMessage);
         }
     }

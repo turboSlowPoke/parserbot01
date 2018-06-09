@@ -63,8 +63,9 @@ public class MessageHandler {
         System.out.println("Sending message to "+ user.getUserId());
         System.out.println("userHash="+user.getUserHash());
         System.out.println("message="+message);
-        //if (user.getUserId()==245480645)
-         //kernelComm.sendMessage(user, "test test test");
+        if (user.getUserId()==376651530) {
+            kernelComm.sendMessage(user, message);
+        }
        // kernelComm.performMarkAsRead(user, 0);
     }
 }

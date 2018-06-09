@@ -93,7 +93,7 @@ public class ChatsHandler implements IChatsHandler {
         boolean updating = true;
         ChatImpl current = (ChatImpl) databaseManager.getChatById(channel.getId());
         if (current == null) {
-            System.out.println("\"ChatsHandler -> onChannel -> if (current == null)");
+            System.out.println("ChatsHandler -> onChannel -> if (current == null)");
             updating = false;
             current = new ChatImpl(channel.getId());
             System.out.println("current = new ChatImpl(channel.getId());");
